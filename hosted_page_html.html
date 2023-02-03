@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en-GB" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Checkout</title>
+    <link href="/SENTRY/PaymentGateway/Merchant/Administration/MerchantPages/88802742/Payment/Secure/css/blueprint/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Muli:200,200i,400,400i,700,800,800i");
+        body {
+            background: #FFFFFF/*#49425A;*/;
+            font-family: 'Muli', sans-serif;
+        }
+
+        .container {
+            margin: auto;
+            width: 1200px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-body {
+            width: 1000px;
+            height: 600px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background: #EBF1EB;
+            box-shadow: 0px 5px 12px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            align-content: center;
+            color: #B0636D;
+            font-size: 1.1rem;
+            font-weight: 200;
+            padding: 2rem;
+        }
+
+        .confirmed {
+            color: #6a9858;
+            font-weight: 800;
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        .active {
+            font-weight: 800;
+            font-style: italic;
+            border-bottom: 3px solid #49425a;
+            color: #49425a;
+        }
+
+        .next {
+            color: #49425A;
+            font-weight: 400;
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        .payment {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .creditcard {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .thecard {
+            width: 365px;
+            height: 225px;
+            display: flex;
+            flex-direction: column;
+            background: #49425A;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            box-shadow: 0px 4px 15px 1px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 0 black;
+        }
+
+        .top-card {
+            display: flex;
+        }
+
+        .card-info {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 3rem;
+            color: #EBF1EB;
+        }
+        .card-info div {
+            margin: 0.3rem 0;
+        }
+        .card-info .card-number {
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            margin: 20px;
+            border-radius: 50%;
+            background: #C54177;
+        }
+        .circle:before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            margin: 15px 10px;
+            border-radius: 50%;
+            background: #E0BF73;
+        }
+
+        .card-title {
+            margin: 20px;
+            margin-left: -40px;
+            z-index: 1;
+            color: #EBF1EB;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 2rem;
+        }
+
+        .form {
+            width: 50%;
+            height: 100%;
+            margin: 0 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Muli', sans-serif;
+            color: #49425a;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        label {
+            margin-bottom: 0.3rem;
+        }
+
+        input, select {
+            margin-bottom: 1.3rem;
+            /*padding: 0.3rem;*/
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, 0);
+            outline: none;
+            /*font-size: 1.1rem;*/
+            line-height: 1.1rem;
+            font-family: 'Muli', sans-serif;
+            background: #FFF;
+            color: #49425a;
+            transition: all 300ms ease;
+        }
+        input:hover, select:hover {
+            transition: all 300ms ease;
+            border: 1px solid #49425A;
+        }
+
+        .small {
+            width: 100%;
+            display: flex;
+        }
+        .small label {
+            display: block;
+        }
+        .small p {
+            width: 200px;
+            margin-left: 1rem;
+            align-self: center;
+        }
+
+        select {
+            width: 45%;
+            height: 3.3rem;
+        }
+
+        .date {
+            display: flex;
+            justify-content: space-between;
+        }
+        .date label {
+            display: block;
+        }
+
+        button {
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-style: italic;
+            font-family: 'Muli', sans-serif;
+            background: #0097A7;
+            color: #EBF1EB;
+            padding: 0.3rem;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s linear !important;
+            -moz-transition: all 0.2s linear !important;
+            -webkit-transition: all 0.2s linear !important;
+            -o-transition: all 0.2s linear !important;
+        }
+        button:hover {
+            background: #008b9b;
+        }
+
+    </style>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8">
+    <script defer="defer" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script defer="defer" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+</head>
+<body style="zoom: 100%;">
+<div class="container">
+
+    <div class="card-body">
+
+        <div class="breadcrumb">
+            <div class="confirmed">Sign Up</div>
+            <div class="confirmed">User Details</div>
+            <div class="active">Payment Method</div>
+            <div class="next">Confirm Order</div>
+        </div>
+
+        <div class="payment">
+            <div class="creditcard">
+                <div class="thecard">
+                    <div class="top-card">
+                        <div class="circle"></div>
+                        <div class="card-title">
+                            The Card
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-number">
+                            1234 5678 9012 3456
+                        </div>
+                        <div class="exp-date">
+                            01 / 2018
+                        </div>
+                        <div class="card-holder">
+                            John Doe
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form">
+                <form action="" method="post" id="FrmCheckout">
+                    <input id="Downgrade3DS" name="Downgrade3DS" type="hidden" value="false">
+                    <label for="Amount">Amount to Pay ([Currency])</label>
+                    <input id="Amount" maxlength="12" name="Amount" readonly="readonly" size="20" tabindex="0" type="text" value="">
+                    <label for="CardNo">Card Number</label>
+                    <input type="text" id="CardNo" name="CardNo" placeholder="1234 5678 9012 3456" maxlength="16">
+                    <label for="cardholder">Card Holder</label>
+                    <input type="text" id="cardholder" placeholder="John Doe">
+                    <label for="CardExpDate">Expiry Date(MMYY)</label>
+                    <input id="CardExpDate" maxlength="4" name="CardExpDate" size="10" tabindex="2" type="text">
+                    <div class="small">
+                        <div class="cvc">
+                            <label for="CardCVV2">Security Code (CVV2)</label>
+                            <input id="CardCVV2" maxlength="4" name="CardCVV2" size="10" tabindex="3" type="text">
+                        </div>
+                        <p>Three or four digits, usually found on the back of the card</p>
+                    </div>
+                    <button id="BtnSubmit" name="BtnSubmit" disabled="disabled">Proceed</button><br>
+                    <div id="InputEvalMsg">&nbsp;</div><br>
+                    <div>
+                        <img alt="Visa Logo" height="30" src="/SENTRY/PaymentGateway/Merchant/Administration/MerchantPages/88802742/Payment/Secure/Images/visa-logo.jpg" width="45">&nbsp;&nbsp;
+                        <img alt="MC Logo" height="30" src="/SENTRY/PaymentGateway/Merchant/Administration/MerchantPages/88802742/Payment/Secure/Images/mastercard_logo.gif" width="45">&nbsp;&nbsp;
+                        <img alt="VBV Logo" height="30" src="/SENTRY/PaymentGateway/Merchant/Administration/MerchantPages/88802742/Payment/Secure/Images/VerifiedByVisa.jpg" width="50">&nbsp;&nbsp;
+                        <img alt="MCSC Logo" height="30" src="/SENTRY/PaymentGateway/Merchant/Administration/MerchantPages/88802742/Payment/Secure/Images/sc-mastercard-securecode.png" width="45">&nbsp;&nbsp;
+                        <img alt="FAC Logo" height="30" src="/SENTRY/PaymentGateway/Merchant/Administration/MerchantPages/88802742/Payment/Secure/Images/Powered-by-FAC_web.jpg" width="55">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', onDocumentReady, false);
+    function onDocumentReady() {
+        DisableSubmit(false);
+        evalFormValues();
+        ConnectEvaluation();
+        DisableButtonOnSubmit();
+
+        $("#FrmCheckout").on("submit", function () {
+            //reads entered card number from an input on the page
+            var cardNum = $("#CardNo").val();
+
+            // for Discovery and AMEX a 3ds auth is downgraded to regular auth
+            if ((cardNum && cardNum.indexOf("6") === 0) //Discover
+                || (cardNum && cardNum.indexOf("34") === 0) //AMEX
+                || (cardNum && cardNum.indexOf("37") === 0) //AMEX
+                || (cardNum && cardNum.indexOf("777774") === 0) //JNCB
+            ) {
+                $("#Downgrade3DS").val("true");
+                $("#FrmCheckout").attr("action", "/MerchantPages/HostedPage.aspx")
+            }
+        });
+    }
+
+    function DisableButtonOnSubmit() {
+        $('#FrmCheckout').submit(function () {
+            $("#BtnSubmit").prop("disabled", true);
+        });
+    }
+
+    function ConnectEvaluation() {
+        $("input").keyup(function () { evalFormValues() });
+    }
+
+    function DisableSubmit() {
+        $("#BtnSubmit").attr("disabled", "disabled");
+    }
+
+    function EnableSubmit() {
+        $("#BtnSubmit").removeAttr("disabled");
+    }
+
+    function AddEvalError(errmsg) {
+        $("div#InputEvalMsg").append('<span style="color: #CD3700; font-weight: 700;">' + errmsg + '</span><br>');
+    }
+
+    //Evaluate Expiry Date (4 digits, month between 1 and 12, year greater than 2000)
+    function EvalExpiryDate(source) {
+        source = source.trim();
+
+        if (isNaN(source) || source.length !== 4) {
+            return false;
+        }
+
+        var amount = parseInt(source, 10);
+        if (isNaN(amount) || amount <= 0) {
+            return false;
+        }
+
+        //Get the current Month and Year
+        var currentTime = new Date();
+
+        //Get the entered month
+        var monthNo = parseInt(source.substring(0, 2), 10);
+        if (isNaN(monthNo) || monthNo < 1 || monthNo > 12) {
+            return false;
+        }
+
+        //Get the entered year
+        var yearNo = parseInt(source.substring(2), 10) + 2000;
+        if (isNaN(yearNo) || yearNo < currentTime.getFullYear()) {
+            return false;
+        }
+
+        //Compare the entered Month and Year is greater or equal than the current ones
+        if ( yearNo * 12 + (monthNo - 1) < currentTime.getFullYear() * 12 + currentTime.getMonth()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    //Evaluate CVV (positive number of 3 or 4 digits)
+    function EvalCVV2(source) {
+        source = source.trim();
+
+        if (isNaN(source) || source.length < 3 || source.length > 4) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function EvalCardNo(inputtxt) {
+        //Evaluates the card starts with a digit (2 to 6) and has a total length of between 14 and 16 digits
+        var regex = /^(?:[2-7][0-9]{13,15})$/;
+
+        if (isNaN(inputtxt)) {
+            return false;
+        }
+
+        return (regex.test(inputtxt));
+    }
+
+    function evalFormValues() {
+        $("div#InputEvalMsg").empty();
+
+        DisableSubmit();
+        var isError = false;
+
+        var amount = parseInt($("#Amount").val(), 10);
+        if (isNaN(amount) || amount <= 0) {
+            isError = true;
+            AddEvalError('Payment amount not specified');
+        }
+
+        var cardNo = $("input#CardNo").val();
+        if (!EvalCardNo(cardNo)) {
+            isError = true;
+            AddEvalError('Card Number not entered or invalid');
+        }
+
+        var expDate = $("input#CardExpDate").val();
+        if (!EvalExpiryDate(expDate)) {
+            isError = true;
+            AddEvalError('Expiry Date not entered or invalid');
+        }
+
+        var cardCVV2 = $("input#CardCVV2").val();
+        if (!EvalCVV2(cardCVV2)) {
+            isError = true;
+            AddEvalError('Security Code not entered or invalid');
+        }
+
+        if (isError) {
+            DisableSubmit();
+        }
+        else {
+            EnableSubmit();
+        }
+    }
+</script>
+</body>
+</html>
